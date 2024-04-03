@@ -54,20 +54,18 @@ for x in df:
         # Login
         driver.find_element(By.NAME, r'user').send_keys(x.split(DelPy, 1)[0])
         driver.find_element(By.NAME, r'PASSWORD').send_keys(x.split(DelPy, 1)[1])
-        driver.find_element(By.NAME, r'submit').click() # submit button
-        driver.find_element(By.NAME, r'button').click() # accept button
-        driver.find_element(By.PARTIAL_LINK_TEXT, r'MAIN').click() # FASSUB Menu
+        driver.find_element(By.NAME, r'submit').click()
+        driver.find_element(By.NAME, r'button').click()
+        driver.find_element(By.PARTIAL_LINK_TEXT, r'MAIN').click()
         driver.find_element(By.XPATH, r'/html/body/form/center/input').click()
         #web elements to interact with on the site
-        new_link = r''
+        new_link = r'/html/body/form/div/table/tbody/tr[2]/td/input'
         continue_button = r'/html/body/form/div/table/tbody/tr[2]/td/center/table/tbody/tr[3]/td/input'
         dropdown = r'/html/body/form/div/table/tbody/tr[2]/td/table/tbody/tr[2]/td/select'
-        # Get dropdown values for the current logged-in user
         click_link(new_link)
         click(continue_button)
-        dropdown = driver.find_element(By. XPATH, dropdown) #property select dropdown
+        dropdown = driver.find_element(By. XPATH, dropdown)
         options = dropdown.find_elements(By.TAG_NAME, "option")
-        # Store dropdown values in the grab bag list
         for option in options:
                 if option.get_attribute("value") != "none": #skip the first option
                     varPull = x.split(DelPy, 1)[0] + DelPy + option.get_attribute("value")
@@ -88,7 +86,7 @@ df2 = pd.DataFrame(data_listing, columns=['original'])
 df2.to_excel(output_file, sheet_name="RawData", index=False)
 df2.to_excel(backup_file, sheet_name="RawData", index=False)
 
-#print the IDs with errors
+#print the errors
 if len(error_log) > 0:
      print("errors for the following users:")
      for x in error_log:
