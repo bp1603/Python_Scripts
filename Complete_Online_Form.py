@@ -29,14 +29,14 @@ def data_pull(pull_range):
     driver.find_element(By.PARTIAL_LINK_TEXT, 'Add').click()
     driver.switch_to.alert.accept()
     
-def send_Xp(Xp, accountInformation):
-    driver.find_element(By.XPATH, Xp).send_keys(accountInformation)
+def send_xpath(xpath, accountInformation):
+    driver.find_element(By.XPATH, xpath).send_keys(accountInformation)
     
 def send_name(name, accountInformation)
     driver.find_element(By.NAME, name).send_keys(accountInformation)
 
-def click_xpath(Xp):
-    driver.find_element(By.XPATH, Xp).click()
+def click_xpath(xpath):
+    driver.find_element(By.XPATH, xpath).click()
 
 def click_name(name)
     driver.find_element(By.NAME, name).click()
@@ -46,9 +46,11 @@ def dropdown_select(Xp, dropdown_selection):
     site_select = Select(site_dropdown)
     site_select.select_by_visible_text(dropdown_selection)
 
-UserID = PythonData['B3'].value
-UserPassword = PythonData['B4'].value
-FileType = PythonData['B5'].value
+UserID = PythonData['B1'].value
+UserPassword = PythonData['B2'].value
+FileType = PythonData['B3'].value
+form1 = PythonData['B4'].value
+form2 = PythonData['B5'].value
 
 excelRange_accounts = PythonData['B6' : 'B100']
 excelRange_notes = PythonData['b101' : 'B200']
@@ -67,7 +69,7 @@ click_name(r'submit')
 click_name(r'button')
 click_xpath(r'/html/body/form/center/input')
 
-click(r'/html/body/div[2]/table/tbody/tr[2]/td/center/table/tbody/tr[2]/td/ul/li/a/font/b')
+click_xpath(form1)
 
 for x in accounts:
     try:
@@ -77,7 +79,7 @@ for x in accounts:
     else:
         error_log.append(x.split(DelPy, 2)[2])
 
-click(r'/html/body/div[2]/table/tbody/tr[2]/td/center/table/tbody/tr[3]/td/ul/li/a/font/b')
+click(form2)
 
 for x in notes:
     Add_Note()
